@@ -1,19 +1,30 @@
 {
   "name": "KnowledgeHub",
   "version": "1.0.0",
-  "description": "Projet KnowledgeHub",
-  "main": "server.js",
+  "description": "Plateforme modulaire de construction de connaissances personnelles avec intégration IA.",
+  "main": "src/index.js",
   "scripts": {
-    "start": "node server.js",
-    "dev": "nodemon server.js",
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js",
     "test": "jest"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "knowledge",
+    "hub",
+    "ai",
+    "graphql",
+    "mongodb"
+  ],
+  "author": "Mira-Mjodheim",
   "license": "ISC",
   "dependencies": {
+    "apollo-server-express": "^2.22.2",
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "graphql": "^15.3.0",
+    "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.21",
     "mongodb": "^3.6.4",
     "mongoose": "^5.12.3",
     "nodemon": "^2.0.13"
@@ -26,6 +37,9 @@
     "jest": "^27.4.5"
   },
   "babel": {
-    "presets": ["@babel/preset-env", "@babel/preset-node"]
+    "presets": [
+      "@babel/preset-env",
+      "@babel/preset-node"
+    ]
   }
 }
