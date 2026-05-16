@@ -1,0 +1,51 @@
+```graphql
+type User {
+    id: ID!
+    username: String!
+    email: String!
+    password: String!
+    knowledgeHubs: [KnowledgeHub!]!
+}
+
+type KnowledgeHub {
+    id: ID!
+    title: String!
+    description: String
+    users: [User!]!
+    articles: [Article!]!
+}
+
+type Article {
+    id: ID!
+    title: String!
+    content: String!
+    knowledgeHub: KnowledgeHub!
+    author: User!
+}
+
+type Query {
+    users: [User!]!
+    knowledgeHubs: [KnowledgeHub!]!
+    articles: [Article!]!
+    user(id: ID!): User
+    knowledgeHub(id: ID!): KnowledgeHub
+    article(id: ID!): Article
+}
+
+type Mutation {
+    createUser(username: String!, email: String!, password: String!): User!
+    createKnowledgeHub(title: String!, description: String): KnowledgeHub!
+    createArticle(title: String!, content: String!, knowledgeHubId: ID!, authorId: ID!): Article!
+    updateUser(id: ID!, username: String, email: String, password: String): User!
+    updateKnowledgeHub(id: ID!, title: String, description: String): KnowledgeHub!
+    updateArticle(id: ID!, title: String, content: String): Article!
+    deleteUser(id: ID!): Boolean!
+    deleteKnowledgeHub(id: ID!): Boolean!
+    deleteArticle(id: ID!): Boolean!
+}
+
+schema {
+    query: Query
+    mutation: Mutation
+}
+```
