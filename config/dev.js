@@ -1,4 +1,3 @@
-```
 module.exports = {
   MONGO_URI: process.env.MONGO_URI || 'mongodb://localhost:27017/knowledgehub-dev',
   PORT: process.env.PORT || 4000,
@@ -7,4 +6,3 @@ module.exports = {
   CORS_METHODS: process.env.CORS_METHODS || 'GET, POST, PUT, DELETE, OPTIONS',
   CORS_HEADERS: process.env.CORS_HEADERS || 'Content-Type, Authorization',
 };
-```

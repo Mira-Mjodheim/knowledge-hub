@@ -1,4 +1,3 @@
-```javascript
 const { User } = require('../models/User');
 const { mongo } = require('../db/mongo');
 
@@ -34,4 +33,3 @@ const userService = {
 };
 
 module.exports = userService;
-```

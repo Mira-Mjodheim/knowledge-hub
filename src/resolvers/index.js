@@ -1,4 +1,3 @@
-```javascript
 const { graphqlHTTP } = require('express-graphql');
 const { buildSchema } = require('graphql');
 const { UserResolver } = require('./userResolver');
@@ -25,4 +24,3 @@ const resolvers = [
 ];
 
 module.exports = { rootResolvers, resolvers };
-```

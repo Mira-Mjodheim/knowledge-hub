@@ -1,4 +1,3 @@
-```javascript
 const { MongoClient } = require('mongodb');
 const KnowledgeResolver = require('../../src/resolvers/KnowledgeResolver');
 const KnowledgeService = require('../../src/services/KnowledgeService');
@@ -102,4 +101,3 @@ describe('KnowledgeResolver', () => {
     });
   });
 });
-```

@@ -1,4 +1,3 @@
-```javascript
 const mongoose = require('mongoose');
 
 const knowledgeSchema = new mongoose.Schema({
@@ -41,4 +40,3 @@ const knowledgeSchema = new mongoose.Schema({
 const Knowledge = mongoose.model('Knowledge', knowledgeSchema);
 
 module.exports = Knowledge;
-```

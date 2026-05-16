@@ -1,4 +1,3 @@
-```javascript
 const { validate: isEmail } = require('isemail');
 const { isMongoId } = require('is-mongodb-id');
 
@@ -10,4 +9,3 @@ const validate = {
 };
 
 module.exports = validate;
-```

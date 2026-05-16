@@ -1,4 +1,3 @@
-```javascript
 const { KnowledgeModel } = require('../models');
 const { validate } = require('CValidator');
 
@@ -46,4 +45,3 @@ const knowledgeResolver = {
 };
 
 module.exports = knowledgeResolver;
-```

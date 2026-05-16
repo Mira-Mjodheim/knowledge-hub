@@ -1,4 +1,3 @@
-```javascript
 require('dotenv').config();
 const express = require('express');
 const { ApolloServer } = require('apollo-server-express');
@@ -21,4 +20,3 @@ const PORT = process.env.PORT || 4000;
 app.listen({ port: PORT }, () => {
   console.log(`Server écoute sur le port ${PORT}`);
 });
-```

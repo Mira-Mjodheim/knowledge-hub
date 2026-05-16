@@ -1,4 +1,3 @@
-```javascript
 const { Knowledge } = require('../models/Knowledge');
 const { User } = require('../models/User');
 const mongo = require('../db/mongo');
@@ -62,4 +61,3 @@ const KnowledgeService = {
 };
 
 module.exports = KnowledgeService;
-```

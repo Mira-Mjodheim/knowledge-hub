@@ -1,4 +1,3 @@
-```javascript
 const { User } = require('../models');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
@@ -51,4 +50,3 @@ const resolvers = {
 };
 
 module.exports = resolvers;
-```

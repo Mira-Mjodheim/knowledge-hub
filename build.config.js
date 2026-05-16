@@ -1,4 +1,3 @@
-```javascript
 const path = require('path');
 const { merge } = require('lodash');
 const devConfig = require('./config/dev');
@@ -30,4 +29,3 @@ const config = {
 const envConfig = config.env === 'production' ? prodConfig : devConfig;
 
 module.exports = merge(config, envConfig);
-```

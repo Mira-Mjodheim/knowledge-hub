@@ -1,4 +1,3 @@
-```javascript
 const { MongoClient } = require('mongodb');
 const dotenv = require('dotenv');
 
@@ -26,4 +25,3 @@ const connectDB = async () => {
 };
 
 module.exports = connectDB;
-```

@@ -1,4 +1,3 @@
-```graphql
 type User {
     id: ID!
     username: String!
@@ -48,4 +47,3 @@ schema {
     query: Query
     mutation: Mutation
 }
-```

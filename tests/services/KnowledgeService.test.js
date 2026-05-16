@@ -1,4 +1,3 @@
-```javascript
 const { KnowledgeService } = require('../../src/services/KnowledgeService');
 const { Knowledge } = require('../../src/models/Knowledge');
 const { MongoClient } = require('mongodb');
@@ -91,4 +90,3 @@ describe('KnowledgeService', () => {
     });
   });
 });
-```
