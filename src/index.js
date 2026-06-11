@@ -2,7 +2,9 @@ require('dotenv').config();
 const express = require('express');
 const { ApolloServer } = require('apollo-server-express');
 const mongoose = require('mongoose');
-const typeDefs = require('./schema');
+const fs = require('fs');
+const path = require('path');
+const typeDefs = fs.readFileSync(path.join(__dirname, './schema.graphql'), 'utf8');
 const resolvers = require('./resolvers');
 
 const app = express();

@@ -4,6 +4,14 @@ const User = require('../models/User');
 
 const secretKey = process.env.SECRET_KEY;
 
+if (!secretKey) {
+  throw new Error('FATAL ERROR: SECRET_KEY is not defined. Please set it in your .env file.');
+}
+
+if (secretKey.length < 32) {
+  throw new Error('FATAL ERROR: SECRET_KEY is too short. It must be at least 32 characters long for strong security.');
+}
+
 const authUtils = {
   async hashPassword(password) {
     const salt = await bcrypt.genSalt(10);

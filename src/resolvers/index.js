@@ -1,8 +1,4 @@
-const { graphqlHTTP } = require('express-graphql');
-const { buildSchema } = require('graphql');
-const { UserResolver } = require('./userResolver');
-const { ArticleResolver } = require('./articleResolver');
-const { CategoryResolver } = require('./categoryResolver');
+const { UserResolver } = require('./UserResolver');
 
 const rootResolvers = {
   Query: {
