@@ -2,45 +2,41 @@ type User {
     id: ID!
     username: String!
     email: String!
-    password: String!
-    knowledgeHubs: [KnowledgeHub!]!
+    knowledge: [Knowledge!]!
 }
 
-type KnowledgeHub {
+type Knowledge {
     id: ID!
     title: String!
     description: String
-    users: [User!]!
-    articles: [Article!]!
+    categories: [String!]
+    tags: [String!]
+    createdBy: User!
+    createdAt: String!
+    updatedAt: String!
 }
 
-type Article {
-    id: ID!
-    title: String!
-    content: String!
-    knowledgeHub: KnowledgeHub!
-    author: User!
+type AuthPayload {
+    token: String!
+    user: User!
 }
 
 type Query {
     users: [User!]!
-    knowledgeHubs: [KnowledgeHub!]!
-    articles: [Article!]!
     user(id: ID!): User
-    knowledgeHub(id: ID!): KnowledgeHub
-    article(id: ID!): Article
+    me: User
+    knowledges: [Knowledge!]!
+    knowledge(id: ID!): Knowledge
 }
 
 type Mutation {
-    createUser(username: String!, email: String!, password: String!): User!
-    createKnowledgeHub(title: String!, description: String): KnowledgeHub!
-    createArticle(title: String!, content: String!, knowledgeHubId: ID!, authorId: ID!): Article!
-    updateUser(id: ID!, username: String, email: String, password: String): User!
-    updateKnowledgeHub(id: ID!, title: String, description: String): KnowledgeHub!
-    updateArticle(id: ID!, title: String, content: String): Article!
+    register(username: String!, email: String!, password: String!): AuthPayload!
+    login(email: String!, password: String!): AuthPayload!
+    updateUser(id: ID!, username: String, email: String): User!
     deleteUser(id: ID!): Boolean!
-    deleteKnowledgeHub(id: ID!): Boolean!
-    deleteArticle(id: ID!): Boolean!
+    createKnowledge(title: String!, content: String!, authorId: ID!): Knowledge!
+    updateKnowledge(id: ID!, title: String, content: String): Knowledge!
+    deleteKnowledge(id: ID!): Boolean!
 }
 
 schema {

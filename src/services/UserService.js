@@ -1,5 +1,4 @@
 const { User } = require('../models/User');
-const { mongo } = require('../db/mongo');
 
 const userService = {
   async getAllUsers() {
