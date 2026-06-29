@@ -1,22 +1,20 @@
 const { UserResolver } = require('./UserResolver');
+const KnowledgeResolver = require('./KnowledgeResolver');
 
 const rootResolvers = {
   Query: {
     ...UserResolver.Query,
-    ...ArticleResolver.Query,
-    ...CategoryResolver.Query,
+    ...KnowledgeResolver.Query,
   },
   Mutation: {
     ...UserResolver.Mutation,
-    ...ArticleResolver.Mutation,
-    ...CategoryResolver.Mutation,
+    ...KnowledgeResolver.Mutation,
   },
 };
 
 const resolvers = [
   UserResolver,
-  ArticleResolver,
-  CategoryResolver,
+  KnowledgeResolver,
 ];
 
 module.exports = { rootResolvers, resolvers };
