@@ -1,45 +1,45 @@
-type User {
-    id: ID!
-    username: String!
-    email: String!
-    knowledge: [Knowledge!]!
+type Knowledge {
+  id: ID!
+  title: String!
+  content: String!
+  description: String
+  categories: [String]
+  tags: [String]
+  createdBy: User!
+  createdAt: String
+  updatedAt: String
+  relevance: Float
 }
 
-type Knowledge {
-    id: ID!
-    title: String!
-    description: String
-    categories: [String!]
-    tags: [String!]
-    createdBy: User!
-    createdAt: String!
-    updatedAt: String!
+type User {
+  id: ID!
+  username: String!
+  email: String!
+  createdAt: String
+  updatedAt: String
 }
 
 type AuthPayload {
-    token: String!
-    user: User!
+  token: String!
+  user: User!
 }
 
 type Query {
-    users: [User!]!
-    user(id: ID!): User
-    me: User
-    knowledges: [Knowledge!]!
-    knowledge(id: ID!): Knowledge
+  knowledge(id: ID): [Knowledge]
+  knowledges: [Knowledge]
+  searchKnowledge(query: String!, limit: Int, threshold: Float): [Knowledge]
+  suggestTags(title: String!, content: String!): [String]
+  users: [User]
+  user(id: ID!): User
+  me: User
 }
 
 type Mutation {
-    register(username: String!, email: String!, password: String!): AuthPayload!
-    login(email: String!, password: String!): AuthPayload!
-    updateUser(id: ID!, username: String, email: String): User!
-    deleteUser(id: ID!): Boolean!
-    createKnowledge(title: String!, content: String!, authorId: ID!): Knowledge!
-    updateKnowledge(id: ID!, title: String, content: String): Knowledge!
-    deleteKnowledge(id: ID!): Boolean!
-}
-
-schema {
-    query: Query
-    mutation: Mutation
+  register(username: String!, email: String!, password: String!): AuthPayload
+  login(email: String!, password: String!): AuthPayload
+  createKnowledge(title: String!, content: String!, description: String, authorId: ID!): Knowledge
+  updateKnowledge(id: ID!, title: String, content: String, description: String): Knowledge
+  deleteKnowledge(id: ID!): Boolean
+  updateUser(id: ID!, username: String, email: String): User
+  deleteUser(id: ID!): Boolean
 }
