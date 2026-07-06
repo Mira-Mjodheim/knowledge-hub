@@ -26,18 +26,18 @@
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.21",
     "mongodb": "^3.6.4",
-    "mongoose": "^5.12.3",
-    "nodemon": "^2.0.13"
+    "mongoose": "^5.12.3"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.10",
     "@babel/core": "^7.12.10",
     "@babel/preset-env": "^7.12.11",
-
-    "jest": "^27.4.5"
+    "jest": "^27.4.5",
+    "nodemon": "^2.0.13"
   },
   "babel": {
     "presets": [
-      "@babel/preset-env"    ]
+      "@babel/preset-env"
+    ]
   }
 }
