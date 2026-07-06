@@ -2,9 +2,13 @@ type Knowledge {
   id: ID!
   title: String!
   content: String!
+  description: String
+  categories: [String]
+  tags: [String]
   createdBy: User!
-  createdAt: String!
+  createdAt: String
   updatedAt: String
+  relevance: Float
 }
 
 type User {
@@ -23,6 +27,8 @@ type AuthPayload {
 type Query {
   knowledge(id: ID): [Knowledge]
   knowledges: [Knowledge]
+  searchKnowledge(query: String!, limit: Int, threshold: Float): [Knowledge]
+  suggestTags(title: String!, content: String!): [String]
   users: [User]
   user(id: ID!): User
   me: User
@@ -31,8 +37,8 @@ type Query {
 type Mutation {
   register(username: String!, email: String!, password: String!): AuthPayload
   login(email: String!, password: String!): AuthPayload
-  createKnowledge(title: String!, content: String!, authorId: ID!): Knowledge
-  updateKnowledge(id: ID!, title: String, content: String): Knowledge
+  createKnowledge(title: String!, content: String!, description: String, authorId: ID!): Knowledge
+  updateKnowledge(id: ID!, title: String, content: String, description: String): Knowledge
   deleteKnowledge(id: ID!): Boolean
   updateUser(id: ID!, username: String, email: String): User
   deleteUser(id: ID!): Boolean

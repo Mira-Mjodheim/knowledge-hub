@@ -1,34 +1,92 @@
-const { Knowledge } = require('../models/Knowledge');
+const Knowledge = require('../models/Knowledge');
+const { embed, cosineSimilarity, suggestTags } = require('./embedding');
 
-const KnowledgeService = {
-  async getAllKnowledges() {
-    const knowledges = await Knowledge.find().populate('createdBy', '_id username');
-    return knowledges;
-  },
+class KnowledgeService {
+  /**
+   * Create a knowledge entry with auto-generated embedding and tags.
+   */
+  async create({ title, content, description, createdBy }) {
+    const combined = `${title}\n${description || ''}\n${content || ''}`.slice(0, 8000);
 
-  async getKnowledgeById(id) {
-    const knowledge = await Knowledge.findById(id).populate('createdBy', '_id username');
-    if (!knowledge) throw new Error('Connaissance non trouvée');
-    return knowledge;
-  },
+    const [embedding, tags] = await Promise.all([
+      embed(combined),
+      suggestTags(title, content || description || ''),
+    ]);
 
-  async createKnowledge(data) {
-    const { title, description, categories, tags, createdBy } = data;
-    const knowledge = new Knowledge({ title, description, categories, tags, createdBy });
-    await knowledge.save();
-    return knowledge;
-  },
+    const entry = new Knowledge({
+      title,
+      content: content || '',
+      description,
+      embedding,
+      tags: tags.length > 0 ? [...new Set(tags)] : undefined,
+      createdBy,
+    });
 
-  async updateKnowledge(id, data) {
-    const knowledge = await Knowledge.findByIdAndUpdate(id, { ...data, updatedAt: new Date() }, { new: true });
-    if (!knowledge) throw new Error('Connaissance non trouvée');
-    return knowledge;
-  },
+    return entry.save();
+  }
 
-  async deleteKnowledge(id) {
-    await Knowledge.findByIdAndDelete(id);
-    return { message: 'Connaissance supprimée avec succès' };
-  },
-};
+  /**
+   * Update a knowledge entry, regenerating embedding and tags.
+   */
+  async update(id, { title, content, description }) {
+    const entry = await Knowledge.findById(id);
+    if (!entry) return null;
 
-module.exports = KnowledgeService;
+    if (title !== undefined) entry.title = title;
+    if (content !== undefined) entry.content = content;
+    if (description !== undefined) entry.description = description;
+
+    const combined = `${entry.title}\n${entry.description || ''}\n${entry.content || ''}`.slice(0, 8000);
+
+    const [embedding, tags] = await Promise.all([
+      embed(combined),
+      suggestTags(entry.title, entry.content || entry.description || ''),
+    ]);
+
+    entry.embedding = embedding;
+    if (tags.length > 0) entry.tags = [...new Set(tags)];
+    entry.updatedAt = new Date();
+
+    return entry.save();
+  }
+
+  /**
+   * Semantic search: find entries most similar to query.
+   */
+  async search(query, { limit = 10, threshold = 0.2 } = {}) {
+    if (!query || !query.trim()) return [];
+
+    const queryVec = await embed(query);
+
+    // Fetch all entries with embeddings
+    const entries = await Knowledge.find({})
+      .select('+embedding')
+      .populate('createdBy', '_id username email')
+      .lean();
+
+    // Score by cosine similarity
+    const scored = entries
+      .filter(e => e.embedding && e.embedding.length > 0)
+      .map(e => ({
+        ...e,
+        _score: cosineSimilarity(queryVec, e.embedding),
+      }))
+      .filter(e => e._score >= threshold)
+      .sort((a, b) => b._score - a._score)
+      .slice(0, limit);
+
+    // Remove embedding from response (large vector)
+    for (const e of scored) delete e.embedding;
+
+    return scored;
+  }
+
+  /**
+   * Get suggested tags for a title/content pair (without creating an entry).
+   */
+  async getSuggestedTags(title, content) {
+    return suggestTags(title, content);
+  }
+}
+
+module.exports = new KnowledgeService();
